@@ -21,6 +21,7 @@ private UUID id;
 private String name;
 private LocalDateTime orderDate;
 private  BigDecimal price;
+// count кол-во товара
 
 public  Order( String name,BigDecimal price, LocalDateTime orderDate)
 {

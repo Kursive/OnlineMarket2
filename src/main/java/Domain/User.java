@@ -22,7 +22,7 @@ public class User {
 
     private String email;
 
-    private String password;
+    private String password;// роль добавить
 
     public User(String name, String email, String password)
     {
@@ -36,6 +36,12 @@ public class User {
         if (password == null || password.isBlank())
             throw new IllegalArgumentException("Ошибка пароля");
 
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+    public  void updateuser(String name, String email, String password)
+    {
         this.name = name;
         this.email = email;
         this.password = password;
