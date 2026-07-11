@@ -3,7 +3,11 @@ package com.onlinemarket.jv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "Api",          // ← контроллеры
+        "Application",  // ← сервисы и репозитории
+        "Domain"})
+
 public class OnlineMarketApplication
 {
 

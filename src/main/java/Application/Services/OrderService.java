@@ -7,23 +7,20 @@ import Domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService
-{
+public class OrderService {
 
     private final IOrderRepository orderRepository;
 
-    public OrderResponse getById(UUID id)
-    {
-        Order order = orderRepository.getById(id);
-        if (order == null)
-        {
-            throw new IllegalArgumentException("Ошибка поиска заказа");
-        }
+    public OrderResponse getById(UUID id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ошибка поиска заказа"));
+
         return new OrderResponse(
                 order.getId(),
                 order.getName(),
@@ -31,40 +28,53 @@ public class OrderService
                 order.getPrice()
         );
     }
-    public  Order  create (OrderRequest request)
-    {
-        Order order = new Order(request.name(), request.price(), request.orderDate());
-        if (order == null)
-        {
-            throw new IllegalArgumentException("Ошибка создания заказа");
-        }
-        return orderRepository.create(order);
-    }
-    public Order update (UUID id)
-    {
-        Order order = orderRepository.getById(id);
-        if (order == null)
-        {
-            throw new IllegalArgumentException("Ошибка обновления заказа");
-        }
-        order.updateorder(order.getName(), order.getPrice(),order.getOrderDate());
-        return  orderRepository.update(order);
+
+    public Order create(OrderRequest request) {
+
+        Order order = new Order
+                (
+                request.name(),
+                request.price(),
+                        LocalDateTime.now()
+                );
+
+        return orderRepository.save(order);
     }
 
-    public  void remove(UUID id)
-    {
-        Order order = orderRepository.getById(id);
-        if (order == null)
-        {
-        throw new IllegalArgumentException("Ошибка удаления заказа");
-        }
-        orderRepository.remove(order);
+    public Order update(UUID id, OrderRequest request) {
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ошибка обновления заказа"));
+
+        order.updateorder(
+                request.name(),
+                request.price(),
+                LocalDateTime.now()
+        );
+
+        return orderRepository.save(order);
     }
-    public List<OrderResponse> getAll()
-    {
-       List<Order> orders = orderRepository.getAll();
-       return  orders.stream().map(order -> new OrderResponse
-               (order.getId(),order.getName(),order.getOrderDate(),order.getPrice())).toList();
+
+    public void remove(UUID id) {
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ошибка удаления заказа"));
+
+        orderRepository.delete(order);
+    }
+
+    public List<OrderResponse> getAll() {
+
+        List<Order> orders = orderRepository.findAll();
+
+        return orders.stream()
+                .map(order -> new OrderResponse(
+                        order.getId(),
+                        order.getName(),
+                        order.getOrderDate(),
+                        order.getPrice()
+                ))
+                .toList();
     }
 
 }

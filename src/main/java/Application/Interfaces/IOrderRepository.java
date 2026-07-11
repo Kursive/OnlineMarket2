@@ -2,6 +2,9 @@
 
 import Domain.Order;
 
-public interface IOrderRepository extends IGenericRepository<Order>
+import java.util.UUID;
+
+
+public interface IOrderRepository extends IGenericRepository<Order, UUID>
 {
 }
