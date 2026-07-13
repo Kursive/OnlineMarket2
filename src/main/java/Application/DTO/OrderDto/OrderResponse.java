@@ -1,4 +1,4 @@
-﻿package Application.DTO.OrderDto;
+package Application.DTO.OrderDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

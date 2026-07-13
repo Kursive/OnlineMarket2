@@ -1,4 +1,4 @@
-﻿package Api.Controllers;
+package Api.Controllers;
 
 import Application.DTO.UserDto.UserRequest;
 import Application.DTO.UserDto.UserResponse;

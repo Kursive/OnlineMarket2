@@ -1,4 +1,4 @@
-﻿package Application.Interfaces;
+package Application.Interfaces;
 
 import Domain.User;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-﻿package Application.Interfaces;
+package Application.Interfaces;
 
 import Domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-﻿package Application.DTO.UserDto;
+package Application.DTO.UserDto;
 
 import java.util.UUID;
 
